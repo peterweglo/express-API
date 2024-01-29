@@ -7,9 +7,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 const db = [
-  { id: 1, author: 'John Doe', text: 'This company is worth every coin!' },
+  { id: '1', author: 'John Doe', text: 'This company is worth every coin!' },
   {
-    id: 2,
+    id: '2',
     author: 'Amanda Doe',
     text: 'They really know how to make you happy.',
   },
@@ -25,7 +25,7 @@ app.get('/testimonials/random', (req, res) => {
 });
 
 app.get('/testimonials/:id', (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   const testimonial = db.find((item) => item.id === id);
   if (!testimonial) {
     return res.status(404).json({ message: 'Testimonial not found' });
@@ -41,27 +41,27 @@ app.post('/testimonials', (req, res) => {
     text,
   };
   db.push(newTestimonial);
-  res.status(201).json(newTestimonial);
+  res.status(201).json({ message: 'OK' });
 });
 
 app.put('/testimonials/:id', (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   const index = db.findIndex((item) => item.id === id);
   if (index === -1) {
     return res.status(404).json({ message: 'Testimonial not found' });
   }
   db[index] = { ...db[index], ...req.body, id: db[index].id };
-  res.json(db[index]);
+  res.json({ message: 'OK' });
 });
 
 app.delete('/testimonials/:id', (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   const index = db.findIndex((item) => item.id === id);
   if (index === -1) {
     return res.status(404).json({ message: 'Testimonial not found' });
   }
   const deleted = db.splice(index, 1);
-  res.json(deleted[0]);
+  res.json({ message: 'OK' });
 });
 
 app.use((req, res) => {
