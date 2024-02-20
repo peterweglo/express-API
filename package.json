@@ -9,12 +9,18 @@
     "express": "4.17.1",
     "mongoose": "7.4.3",
     "socket.io": "4.7.2",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "chai": "4.2.0",
+    "chai-http": "4.3.0",
+    "mocha": "6.2.1",
+    "onchange": "6.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.3"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "set NODE_ENV=test&& mocha \"./{,!(node_modules|client)/**/}*.test.js\"",
+    "test:watch": "onchange \"./**/*.js\" -i -k -- yarn test"
   }
 }
