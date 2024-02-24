@@ -51,12 +51,12 @@ app.use((req, res) => {
 });
 
 // connects our backend code with the database
-mongoose.connect(
-  'mongodb+srv://peterweglo:mongomongo@cluster0.zksflg6.mongodb.net/NewWaveDB?retryWrites=true&w=majority',
-  {
-    useNewUrlParser: true,
-  }
-);
+const dbURI =
+  process.env.NODE_ENV === 'production'
+    ? `mongodb+srv://tester:${process.env.DB_PASS}@cluster0.tvjci.mongodb.net/BulletinBoard?retryWrites=true&w=majority`
+    : 'mongodb://localhost:27017/bulletinBoard';
+
+mongoose.connect(dbURI, { useNewUrlParser: true });
 const db = mongoose.connection;
 
 db.once('open', () => {
