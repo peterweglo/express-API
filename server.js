@@ -3,6 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const socket = require('socket.io');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
 
 const testimonialsRoutes = require('./routes/testimonials.routes');
 const concertsRoutes = require('./routes/concerts.routes');
@@ -20,6 +21,7 @@ io.on('connection', (socket) => {
   console.log('New socket');
 });
 
+app.use(helmet());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
